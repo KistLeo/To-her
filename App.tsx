@@ -28,12 +28,15 @@ const App: React.FC = () => {
              <div className="z-20 text-center flex flex-col items-center max-w-3xl w-full">
                 
                 {/* 1. Header - Immediate Fade In */}
-                <div className="mb-8 animate-fade-in">
+                <div className="mb-10 animate-fade-in flex flex-col items-center">
+                    <p className="text-sm md:text-base text-[#9e8c8c] tracking-[0.2em] uppercase font-serif mb-4">
+                        Restaurant Name
+                    </p>
                     <h1 
                         className="text-5xl md:text-7xl text-[#d4a5a5] drop-shadow-sm"
-                        style={{ fontFamily: THEME.fonts.cursive }}
+                        style={{ fontFamily: THEME.fonts.serif }}
                     >
-                        My Valentine
+                        Le de fleur
                     </h1>
                 </div>
 
@@ -43,13 +46,14 @@ const App: React.FC = () => {
                         className="text-xl md:text-2xl text-[#5d5555] leading-loose tracking-wide"
                         style={{ fontFamily: THEME.fonts.serif }}
                     >
-                        You've made me the happiest person.<br/>
-                        I can't wait for our future together.
+                        So this will be my first February 14th<br/>
+                        with the person and the love<br/>
+                        I always dreamed I deserved.
                     </p>
                 </div>
 
                 {/* 3. Final Line - Soft Fade after 3.5s */}
-                <div className="opacity-0 animate-fade-in-slow delay-3000">
+                <div className="opacity-0 animate-fade-in-slow delay-3000 mt-4">
                     <p 
                         className="text-lg md:text-xl text-[#9e8c8c] italic"
                         style={{ fontFamily: THEME.fonts.serif }}
@@ -70,8 +74,8 @@ const App: React.FC = () => {
     <div className="min-h-screen w-full relative overflow-hidden flex flex-col items-center justify-center">
       <Background variant="default" />
       
-      {/* Music Control */}
-      <MusicPlayer shouldPlay={isEnvelopeOpen} />
+      {/* Music Control - Autoplay enabled */}
+      <MusicPlayer shouldPlay={true} />
 
       <main className="w-full relative z-10 flex flex-col items-center justify-center min-h-screen">
         {!isEnvelopeOpen ? (
