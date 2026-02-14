@@ -20,12 +20,6 @@ const Letter: React.FC<LetterProps> = ({ onYes }) => {
       if (currentIndex <= LETTER_CONTENT.length) {
         setDisplayedText(LETTER_CONTENT.slice(0, currentIndex));
         currentIndex++;
-        
-        // Auto scroll to bottom while typing
-        if (scrollRef.current) {
-            scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
-        }
-
       } else {
         clearInterval(typingInterval);
         setIsTypingComplete(true);
@@ -35,17 +29,24 @@ const Letter: React.FC<LetterProps> = ({ onYes }) => {
     return () => clearInterval(typingInterval);
   }, []);
 
+  // Auto-scroll when text updates
+  useEffect(() => {
+    if (scrollRef.current) {
+        scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+    }
+  }, [displayedText]);
+
   const handleNoHover = () => {
-    const maxX = 150; // Max movement X px
-    const maxY = 100;  // Max movement Y px
+    const maxX = 100; // Reduced movement range slightly for better usability
+    const maxY = 80;
     
     // Generate random movement within range, ensure it's not 0
     let x = (Math.random() - 0.5) * 2 * maxX;
     let y = (Math.random() - 0.5) * 2 * maxY;
 
     // Ensure it moves somewhat significantly
-    if (Math.abs(x) < 50) x = x < 0 ? -60 : 60;
-    if (Math.abs(y) < 30) y = y < 0 ? -40 : 40;
+    if (Math.abs(x) < 40) x = x < 0 ? -50 : 50;
+    if (Math.abs(y) < 20) y = y < 0 ? -30 : 30;
 
     setNoBtnPosition({ x, y });
     setIsNoBtnMoved(true);
@@ -108,6 +109,7 @@ const Letter: React.FC<LetterProps> = ({ onYes }) => {
                         position: isNoBtnMoved ? 'relative' : 'relative'
                     }}
                     onMouseEnter={handleNoHover}
+                    onClick={handleNoHover} /* Also move on click for mobile/touch */
                 >
                     <button
                         className="px-8 py-3 bg-white border border-[#d4a5a5] text-[#d4a5a5] rounded-full font-serif text-lg tracking-wide hover:bg-[#fcf5f5] transition-colors shadow-sm"
